@@ -1,6 +1,8 @@
 {
     "name": "tekerrr/todo-mvc",
-    "require": {},
+    "require": {
+        "illuminate/database": "^6.13"
+    },
     "require-dev": {
         "phpunit/phpunit": "^8"
     },

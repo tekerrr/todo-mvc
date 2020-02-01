@@ -2,8 +2,8 @@
 
 return [
     // connection
-    'host'      => 'localhost',
+    'host'      => 'mysql',
     'user'      => 'user',
     'password'  => 'password',
-    'name'      => 'todomvc',
+    'database'  => 'todomvc',
 ];
