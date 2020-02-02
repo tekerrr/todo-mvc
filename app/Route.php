@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\Controllers\AbstractController;
+use App\Http\Controller\AbstractController;
 use App\Formatter\Path;
 
 class Route
@@ -11,12 +11,6 @@ class Route
     private $path;
     private $callback;
 
-    /**
-     * Route constructor.
-     * @param string $method get|post
-     * @param string $path uri
-     * @param $callback
-     */
     public function __construct(string $method, string $path, $callback)
     {
         $this->method = $method;
@@ -24,27 +18,9 @@ class Route
         $this->callback = $callback;
     }
 
-    public static function getMatchExpression(string $path): string
-    {
-        return '/^' . str_replace(['*', '/'], ['\w+', '\/'], $path) . '$/';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param string $method get|post
-     * @param string $uri
-     * @return bool
-     */
     public function match(string $method, string $uri): bool
     {
-        return ($method == $this->method) && preg_match($this->getMatchExpression($this->getPath()), $this->preparePath($uri));
+        return $this->checkMethod($method) && $this->checkPath($uri);
     }
 
     /**
@@ -58,6 +34,26 @@ class Route
             $this->prepareCallback($this->callback),
             $this->getParams($this->preparePath($uri))
         );
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    private function checkMethod(string $method): bool
+    {
+        return $method == $this->method;
+    }
+
+    private function checkPath(string $uri): bool
+    {
+        return preg_match($this->getMatchExpression($this->getPath()), $this->preparePath($uri));
+    }
+
+    private function getMatchExpression(string $path): string
+    {
+        return '/^' . str_replace(['*', '/'], ['\w+', '\/'], $path) . '$/';
     }
 
     /**
@@ -96,6 +92,7 @@ class Route
     private function getCallbackFromString($string): array
     {
         $array = explode('@', $string);
+
         if ($this->checkControllerClass($array[0]) && method_exists($controller = new $array[0], $array[1])) {
             return [$controller, $array[1]];
         }
@@ -122,5 +119,4 @@ class Route
 
         return $params;
     }
-
 }

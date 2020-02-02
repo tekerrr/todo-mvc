@@ -2,46 +2,31 @@
 
 namespace App;
 
+use App\Http\Request;
 use App\Formatter\Path;
 
 class Router
 {
-    private static $currentPath = '';
-    private $defaultRedirectPath = '/';
-    private $routes = [];
+    private static $routes = [];
 
-    public static function getCurrentPath(): string
+    public function get(string $name, string $path, $callback)
     {
-        return self::$currentPath;
+        $this->addRoute($name,Request::METHOD_GET, $path, $callback);
     }
 
-    public static function isActivePath(string $path): string
+    public function post(string $name, string $path, $callback)
     {
-        return preg_match(Route::getMatchExpression($path), self::getCurrentPath()) ? 'active' : '';
+        $this->addRoute($name,Request::METHOD_POST, $path, $callback);
     }
 
-    public function get($path, $callback): self
+    public function put(string $name, string $path, $callback)
     {
-        $this->routes[] = new Route('get', $path, $callback);
-        return $this;
+        $this->addRoute($name,Request::METHOD_PUT, $path, $callback);
     }
 
-    public function post($path, $callback): self
+    public function delete(string $name, string $path, $callback)
     {
-        $this->routes[] = new Route('post', $path, $callback);
-        return $this;
-    }
-
-    public function put($path, $callback): self
-    {
-        $this->routes[] = new Route('put', $path, $callback);
-        return $this;
-    }
-
-    public function delete($path, $callback): self
-    {
-        $this->routes[] = new Route('delete', $path, $callback);
-        return $this;
+        $this->addRoute($name,Request::METHOD_DELETE, $path, $callback);
     }
 
     /**
@@ -50,54 +35,42 @@ class Router
      */
     public function dispatch()
     {
-        $method = $this->getRequestType();
-        $keys = $this->getKeysFromRequest($method);
+        $request = new Request();
 
-        foreach ($keys as $uri) {
-            if ($route = $this->findCurrentRoute($method, $uri = (new Path())->format($uri))) {
-                self::$currentPath = $uri;
-                return $route->run($uri);
-            }
+        if ($route = $this->findCurrentRoute($request->getMethod(), $uri = $request->getUri())) {
+            return $route->run($uri);
         }
 
-        return new \Exception('404');
-    }
-
-    public function setDefaultRedirectPath(string $defaultRedirectPath): void
-    {
-        $this->defaultRedirectPath = $defaultRedirectPath;
+        throw new \Exception('Страница не найдена', '404');
     }
 
     /**
-     * @return string post|get|''
+     * @param string $routeName
+     * @return string
+     * @throws \Exception
      */
-    private function getRequestType(): string
+    public function getRoutePath(string $routeName): string
     {
-        $method = 'get';
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if(isset($_POST['_method']) && ($_POST['_method'] == 'PUT' || $_POST['_method'] == 'DELETE')) {
-                $method = strtolower($_POST['_method']);
-            } else {
-                $method = 'post';
-            }
+        if ($route = $this->getRoute($routeName)) {
+            return $route->getPath();
         }
 
-        return $method;
+        throw new \Exception('Путь не найден');
     }
 
-    /**
-     * @param string $method post|get
-     * @return array
-     */
-    private function getKeysFromRequest(string $method): array
+    private function getRoute(string $routeName): ?Route
     {
-        if ($method == 'get') {
-            return [$_SERVER['REQUEST_URI']];
-        } else {
-            return array_keys($_POST);
-        }
+        return self::$routes[$routeName] ?? null;
+    }
 
+    private function getRoutes(): array
+    {
+        return self::$routes;
+    }
+
+    private function addRoute($name, $method, $path, $callback)
+    {
+        self::$routes[$name] = new Route($method, $path, $callback);
     }
 
     private function findCurrentRoute($method, $path): ?Route
@@ -107,11 +80,7 @@ class Router
                 return $route;
             }
         }
-        return null;
-    }
 
-    private function getRoutes(): array
-    {
-        return $this->routes;
+        return null;
     }
 }

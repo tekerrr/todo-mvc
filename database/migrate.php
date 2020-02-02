@@ -12,7 +12,7 @@ Capsule::schema()->create('users', function (Illuminate\Database\Schema\Blueprin
     $table->timestamps();
 });
 
-\App\Models\User::create([
+\App\Model\User::create([
     'name' => 'name',
     'password' => 'password',
 ]);

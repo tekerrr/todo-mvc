@@ -9,14 +9,6 @@ class Application
     public function __construct(Router $router)
     {
         $this->router = $router;
-        $this->initialize();
-    }
-
-    private function initialize()
-    {
-        $db = Config::getInstance()->get('db');
-
-        // TODO DB
     }
 
     public function run()

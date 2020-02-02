@@ -4,9 +4,9 @@
 - docker, проект [tekerrr/docker-for-todo-mvc](https://github.com/tekerrr/docker-for-todo-mvc)
 - перенесены базовые классы MVC из [tekerrr/skillbox_blog](https://github.com/tekerrr/skillbox_blog)
 - добавлен [Illuminate/database](https://github.com/illuminate/database)
+- рефакторинг классов MVC
 
 Планируется в ближайшее время:
-- рефакторинг классов MVC
 - реализовать аутентификацию и авторизацию
 - реализовать регистрацию
 
