@@ -19,6 +19,16 @@ class Request
         $this->setMethod();
     }
 
+    public function attributes()
+    {
+        return $_POST;
+    }
+
+    public function get(string $key, $default = null)
+    {
+        return array_get($this->attributes(), $key, $default);
+    }
+
     public function getMethod(): string
     {
         return $this->method;
@@ -27,6 +37,17 @@ class Request
     public function getUri(): string
     {
         return (new Path())->format($_SERVER['REQUEST_URI']);
+    }
+
+    public function isEmptyField(array $fields): bool
+    {
+        foreach ($fields as $field) {
+            if (! isset($_POST[$field]) || $_POST[$field] === '') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function setMethod()

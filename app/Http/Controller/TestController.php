@@ -6,6 +6,8 @@ class TestController extends AbstractController
 {
     public function test()
     {
+        var_dump(\App\Model\User::first()->login);
+
         return 'test index';
     }
 

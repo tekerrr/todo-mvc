@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Auth\Auth;
+
 class Application
 {
     private $router;
@@ -13,8 +15,7 @@ class Application
 
     public function run()
     {
-        // TODO Auth
-//        Auth::getInstance()->run();
+        Auth::getInstance()->run();
 
         try {
             $result = $this->router->dispatch();

@@ -4,6 +4,18 @@ require_once __DIR__ . '/../bootstrap/app.php';
 
 $router = new \App\Router();
 
+$router->get('index','/index', function () {
+    return new \App\View\View('index');
+});
+
+$router->get('registration.get', '/registration', \App\Http\Controller\Auth\RegistrationController::class . '@get');
+$router->post('registration.post', '/registration', \App\Http\Controller\Auth\RegistrationController::class . '@post');
+
+$router->get('login.get', '/login', \App\Http\Controller\Auth\LoginController::class . '@get');
+$router->post('login.post', '/login', \App\Http\Controller\Auth\LoginController::class . '@post');
+
+$router->get('logout', '/logout', \App\Http\Controller\Auth\LogoutController::class . '@get');
+
 $router->get('test','/test', \App\Http\Controller\TestController::class . '@test');
 $router->post('test_post','/test', function () {
     return 'test_post';
