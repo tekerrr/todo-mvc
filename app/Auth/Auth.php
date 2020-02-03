@@ -29,8 +29,7 @@ class Auth // Singleton
         if ($this->isAuthorized()) {
             $this->setLoginToCookies();
         } else {
-            $this->deleteLoginFromCookies();
-            $this->deleteUserFromSession();
+            $this->logout();
         }
     }
 
@@ -42,7 +41,7 @@ class Auth // Singleton
 
     public function logout(): void
     {
-        $this->destroySession();
+        $this->deleteUserFromSession();
         $this->deleteLoginFromCookies();
     }
 
@@ -93,10 +92,5 @@ class Auth // Singleton
     private function deleteUserFromSession()
     {
         (new Session())->delete('user');
-    }
-
-    private function destroySession()
-    {
-        (new Session())->destroy();
     }
 }

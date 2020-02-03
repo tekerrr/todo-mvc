@@ -32,13 +32,6 @@ class Session
         $_SESSION[$key] = $value;
     }
 
-    public function destroy(): void
-    {
-        (new Cookies())->clean([session_name()]);
-        session_destroy();
-        unset($_SESSION);
-    }
-
     public function clean(): void
     {
         $_SESSION = [];
