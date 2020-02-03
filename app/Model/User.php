@@ -6,6 +6,8 @@ class User extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = ['login', 'password'];
 
+    public $timestamps = false;
+
     public static function createUser(string $login, string $password): ?User
     {
         if (self::where('login', $login)->exists()) {
