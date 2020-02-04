@@ -5,15 +5,14 @@ namespace App\Http\Controller;
 use App\Http\Redirect;
 use App\Http\Request;
 use App\Model\Todo;
-use App\View\View;
 
-class StepController extends AbstractController
+class FrontStepController extends AbstractController
 {
     public function index()
     {
         $todo = Todo::fromSession()->load('steps');
 
-        return new View('todo.index', compact('todo'));
+        return $todo->toJson();
     }
 
     /**

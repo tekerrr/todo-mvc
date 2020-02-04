@@ -4,6 +4,13 @@ require_once __DIR__ . '/../bootstrap/app.php';
 
 $router = new \App\Router();
 
+// Front
+$router->get('front','/front', function () {
+    return new \App\View\View('front.index');
+});
+$router->get('front.steps.index', '/front/steps', \App\Http\Controller\FrontStepController::class . '@index');
+
+
 $router->get('index','/index', function () {
     return new \App\View\View('index');
 });
