@@ -4,6 +4,8 @@ include VIEW_DIR . '/layout/header.php';
 
 ?>
 
+<div><a href="/steps">Todo</a></div>
+
 <form method="POST" action="/test">
     <input type="submit" value="Тест POST">
 </form>
