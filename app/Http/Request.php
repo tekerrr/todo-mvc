@@ -21,7 +21,7 @@ class Request
 
     public function attributes()
     {
-        return $_POST;
+        return $_REQUEST;
     }
 
     public function get(string $key, $default = null)
@@ -42,7 +42,7 @@ class Request
     public function isEmptyField(array $fields): bool
     {
         foreach ($fields as $field) {
-            if (! isset($_POST[$field]) || $_POST[$field] === '') {
+            if ($this->get($field, '') === '') {
                 return true;
             }
         }
@@ -52,7 +52,7 @@ class Request
 
     private function setMethod()
     {
-        $this->method = $this->isPostRequest() ? $this->getPostRequestMethod() : self::METHOD_GET;
+        $this->method = $this->isPostRequest() ? $this->getPostRequestMethod() : $_SERVER['REQUEST_METHOD'];
     }
 
     private function isPostRequest(): bool
