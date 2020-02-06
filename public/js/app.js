@@ -9,7 +9,16 @@ jQuery(function ($) {
 	const ESCAPE_KEY = 27;
 
 	let ajax = {
-		url: window.location.pathname + 'steps',
+		init: function () {
+			this.url = this.getUrl() + 'steps'
+		},
+		getUrl: function () {
+			let str = window.location.pathname;
+			if (str.slice(-1) !== '/') {
+				str += '/';
+			}
+			return str;
+		},
 		index: function (callback) {
 			$.ajax({
 				method: 'GET',
@@ -324,5 +333,8 @@ jQuery(function ($) {
 		},
 	};
 
-	App.init();
+	if($('*').hasClass('todoapp')) {
+		ajax.init();
+		App.init();
+	}
 });

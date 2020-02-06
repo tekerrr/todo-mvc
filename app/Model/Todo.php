@@ -4,7 +4,7 @@ namespace App\Model;
 
 class Todo extends \Illuminate\Database\Eloquent\Model
 {
-    protected $fillable = ['session'];
+    protected $fillable = ['session', 'name'];
 
     public $timestamps = false;
 

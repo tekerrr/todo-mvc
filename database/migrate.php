@@ -17,7 +17,11 @@ Capsule::schema()->create('users', function (Blueprint $table) {
 
 Capsule::schema()->create('todos', function (Blueprint $table) {
     $table->bigIncrements('id');
-    $table->string('session')->unique()->nullable();
+    $table->unsignedBigInteger('user_id')->nullable();
+    $table->string('session')->nullable()->unique();
+    $table->string('name')->nullable();
+
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 });
 
 Capsule::schema()->create('steps', function (Blueprint $table) {

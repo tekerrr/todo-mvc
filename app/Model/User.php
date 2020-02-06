@@ -34,6 +34,11 @@ class User extends \Illuminate\Database\Eloquent\Model
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
+
     private function passwordVerify(string $password): bool
     {
         return password_verify($password, $this->password);
