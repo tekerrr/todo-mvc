@@ -33,7 +33,7 @@ class StepController extends AbstractStepController
         $step = Todo::fromSession()->steps()->find($id);
 
         if (is_null($step)) {
-            return JsonResponse::false('Щаг не найден');
+            return JsonResponse::false('Шаг не найден');
         }
 
         $request = new Request();
@@ -52,7 +52,7 @@ class StepController extends AbstractStepController
         $step = Todo::fromSession()->steps()->find($id);
 
         if (is_null($step)) {
-            return JsonResponse::false('Щаг не найден');
+            return JsonResponse::false('Шаг не найден');
         }
 
         $step->delete();

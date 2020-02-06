@@ -1,0 +1,66 @@
+.navbar {
+    padding: 20px;
+
+}
+
+.navbar a {
+    margin: 10px;
+    font-size: 20px;
+    color: #111111;
+    text-decoration: none;
+}
+
+.navbar ul li {
+    display: inline;
+    margin: 10px;
+}
+
+.todos a {
+    font-size: 20px;
+    color: #111111;
+    text-decoration: none;
+}
+
+.todos input {
+    width: 100%;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: white;
+}
+
+.todos .button-small {
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    font-size: 20px;
+    background-color: #f5f5f5;
+    width: 10%;
+}
+
+.custom-form input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: white;
+}
+.custom-form .button {
+    background-color: #b83f45;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    opacity: 0.9;
+}
+
+.message p {
+    width: 100%;
+    font-size: 30px;
+    font-weight: 200;
+    text-align: center;
+    color: #b83f45;
+}

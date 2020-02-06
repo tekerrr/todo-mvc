@@ -10,16 +10,6 @@ abstract class AbstractStepController extends AbstractController implements Rout
     private $path;
     private $class;
 
-    abstract public function index();
-    abstract public function store();
-    abstract public function update(string $id);
-    abstract public function destroy(string $id);
-    abstract public function destroyCompleted();
-    abstract public function complete(string $id);
-    abstract public function activate(string $id);
-    abstract public function completeAll();
-    abstract public function activateAll();
-
     public function __construct()
     {
         $this->class = get_class($this);
@@ -63,7 +53,7 @@ abstract class AbstractStepController extends AbstractController implements Rout
             [
                 'name'             => $this->name . '.destroy.completed',
                 'method'           => Request::METHOD_DELETE,
-                'path'             => $this->path . '/',
+                'path'             => $this->path . '/completed',
                 'controllerMethod' => $this->class . '@destroyCompleted',
             ],
             [

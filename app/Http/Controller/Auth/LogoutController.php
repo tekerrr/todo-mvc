@@ -12,6 +12,6 @@ class LogoutController extends AbstractController
     {
         Auth::getInstance()->logout();
 
-        return Redirect::redirect('/index');
+        return Redirect::redirect('/');
     }
 }

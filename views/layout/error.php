@@ -1,1 +1,3 @@
-<?php if (isset($error)): ?><p style="color:red"><?=$error?></p><?php endif; ?>
+<?php if (isset($error)): ?>
+    <section class="message"><p><?=$error?></p></section>
+<?php endif; ?>

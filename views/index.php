@@ -6,7 +6,7 @@ include VIEW_DIR . '/layout/header.php';
 
 <section class="todoapp">
     <header class="header">
-        <h1>todos</h1>
+        <h1><?=$todo->name ?? 'todos'?></h1>
         <input class="new-todo" placeholder="What needs to be done?" autofocus>
     </header>
     <section class="main">

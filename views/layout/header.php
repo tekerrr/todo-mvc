@@ -6,13 +6,13 @@
         <title>tekerrr • TodoMVC</title>
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/index.css">
-        <link rel="stylesheet" href="/css/message.css">
+        <link rel="stylesheet" href="/css/custom.css">
     </head>
     <body>
 
 <?php
 
-//include VIEW_DIR . '/layout/navbar.php';
-//include VIEW_DIR . '/layout/error.php';
+include VIEW_DIR . '/layout/navbar.php';
+include VIEW_DIR . '/layout/error.php';
 
 ?>

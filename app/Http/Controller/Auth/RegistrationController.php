@@ -34,6 +34,6 @@ class RegistrationController extends AbstractController
 
         Auth::getInstance()->login($user);
 
-        return Redirect::redirect('/index');
+        return Redirect::redirect('/');
     }
 }
