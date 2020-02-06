@@ -53,7 +53,7 @@ abstract class AbstractStepController extends AbstractController implements Rout
             [
                 'name'             => $this->name . '.destroy.completed',
                 'method'           => Request::METHOD_DELETE,
-                'path'             => $this->path . '/',
+                'path'             => $this->path . '/completed',
                 'controllerMethod' => $this->class . '@destroyCompleted',
             ],
             [
