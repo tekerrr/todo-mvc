@@ -6,29 +6,11 @@ use App\Http\JsonResponse;
 use App\Http\Request;
 use App\Model\Todo;
 
-class StepController extends AbstractController
+class StepController extends AbstractStepController
 {
     public function index()
     {
         $todo = Todo::fromSession()->load('steps');
-
-        return $todo->toJson();
-    }
-
-    public function indexCompleted()
-    {
-        $todo = Todo::fromSession()->load(['steps' => function ($query) {
-            $query->where('is_completed', true);
-        }]);
-
-        return $todo->toJson();
-    }
-
-    public function indexActive()
-    {
-        $todo = Todo::fromSession()->load(['steps' => function ($query) {
-            $query->where('is_completed', false);
-        }]);
 
         return $todo->toJson();
     }
@@ -65,7 +47,7 @@ class StepController extends AbstractController
         return JsonResponse::true();
     }
 
-    public function delete(string $id)
+    public function destroy(string $id)
     {
         $step = Todo::fromSession()->steps()->find($id);
 
@@ -78,7 +60,7 @@ class StepController extends AbstractController
         return JsonResponse::true();
     }
 
-    public function deleteCompleted()
+    public function destroyCompleted()
     {
        Todo::fromSession()->steps()->where('is_completed', true)->delete();
 

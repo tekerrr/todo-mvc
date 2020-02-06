@@ -2,12 +2,19 @@
 
 namespace App;
 
+use App\Http\Controller\Routable;
 use App\Http\Request;
-use App\Formatter\Path;
 
 class Router
 {
     private static $routes = [];
+
+    public function setController(Routable $controller)
+    {
+        foreach ($controller->getRoutes() as $route) {
+            $this->addRoute($route['name'], $route['method'], $route['path'], $route['controllerMethod']);
+        }
+    }
 
     public function get(string $name, string $path, $callback)
     {
