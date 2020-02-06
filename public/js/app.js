@@ -9,7 +9,7 @@ jQuery(function ($) {
 	const ESCAPE_KEY = 27;
 
 	let ajax = {
-		url: '/steps',
+		url: window.location.pathname + 'steps',
 		index: function (callback) {
 			$.ajax({
 				method: 'GET',
@@ -118,17 +118,12 @@ jQuery(function ($) {
 		init: function () {
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
-			this.filter = this.getFilter();
+			this.filter = 'all';
 
 			ajax.index(function (todo) {
 				App.bindEvents();
 				App.render(todo);
 			});
-		},
-		getFilter: function () {
-			const uri = window.location.pathname;
-			const filter = uri.slice(uri.lastIndexOf('/') + 1);
-			return (filter === 'active' || filter === 'completed') ? filter : 'all';
 		},
 		showMessage: function (message) {
 			$('#message').text(message);
@@ -139,7 +134,11 @@ jQuery(function ($) {
 		bindEvents: function () {
 			$('.new-todo').on('keyup', this.storeStepToServer.bind(this));
 			$('.toggle-all').on('change', this.toggleAllCompletedOnServer.bind(this));
-			$('.footer').on('click', '.clear-completed', this.destroyCompletedOnServer.bind(this));
+			$('.footer')
+				.on('click', '.clear-completed', this.destroyCompletedOnServer.bind(this))
+				.on('click', '#all', this.selectFilterAll.bind(this))
+				.on('click', '#active', this.selectFilterActive.bind(this))
+				.on('click', '#completed', this.selectFilterCompleted.bind(this));
 			$('.todo-list')
 				.on('dblclick', 'label', this.editingMode.bind(this))
 				.on('keyup', '.edit', this.editKeyup.bind(this))
@@ -164,8 +163,22 @@ jQuery(function ($) {
 				completedSteps: stepCount - activeStepCount,
 				filter: this.filter
 			});
-
 			$('.footer').toggle(stepCount > 0).html(template);
+		},
+		selectFilterAll: function (e) {
+			e.preventDefault();
+			this.filter = 'all';
+			this.render();
+		},
+		selectFilterActive: function (e) {
+			e.preventDefault();
+			this.filter = 'active';
+			this.render();
+		},
+		selectFilterCompleted: function (e) {
+			e.preventDefault();
+			this.filter = 'completed';
+			this.render();
 		},
 		getActiveSteps: function () {
 			return this.steps.filter(function (step) {
@@ -184,12 +197,10 @@ jQuery(function ($) {
 
 			if (this.filter === 'active') {
 				return this.getActiveSteps();
-
 			}
 
 			if (this.filter === 'completed') {
 				return this.getCompletedSteps();
-
 			}
 
 			return this.steps;

@@ -34,13 +34,13 @@ include VIEW_DIR . '/layout/header.php';
     <span class="todo-count"><strong>{{activeStepCount}}</strong> item left</span>
     <ul class="filters">
         <li>
-            <a {{#eq filter 'all'}}class="selected"{{/eq}} href="<?=$url ?? ''?>/">All</a>
+            <a {{#eq filter 'all'}}class="selected"{{/eq}} id="all" href="#">All</a>
         </li>
         <li>
-            <a {{#eq filter 'active'}}class="selected"{{/eq}}href="<?=$url ?? ''?>/active">Active</a>
+            <a {{#eq filter 'active'}}class="selected"{{/eq}} id="active" href="#">Active</a>
         </li>
         <li>
-            <a {{#eq filter 'completed'}}class="selected"{{/eq}}href="<?=$url ?? ''?>/completed">Completed</a>
+            <a {{#eq filter 'completed'}}class="selected"{{/eq}} id="completed" href="#">Completed</a>
         </li>
     </ul>
     {{#if completedSteps}}<button class="clear-completed">Clear completed</button>{{/if}}

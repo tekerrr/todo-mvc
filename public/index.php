@@ -11,12 +11,6 @@ $router = new \App\Router();
 $router->get('index','/', function () {
     return new \App\View\View('index');
 });
-$router->get('index.completed','/completed', function () {
-    return new \App\View\View('index');
-});
-$router->get('index.active','/active', function () {
-    return new \App\View\View('index');
-});
 $router->get('steps.index', '/steps', StepController::class . '@index');
 $router->post('steps.store', '/steps', StepController::class . '@store');
 $router->put('steps.update', '/steps/*', StepController::class . '@update');
@@ -26,7 +20,6 @@ $router->put('steps.all.complete', '/steps/all/complete', StepController::class 
 $router->put('steps.all.uncomplete', '/steps/all/activate', StepController::class . '@activateAll');
 $router->put('steps.complete', '/steps/*/complete', StepController::class . '@complete');
 $router->put('steps.uncomplete', '/steps/*/activate', StepController::class . '@activate');
-
 
 // User
 $router->get('registration.get', '/registration', Auth\RegistrationController::class . '@get');
