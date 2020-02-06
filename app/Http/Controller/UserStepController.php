@@ -45,7 +45,7 @@ class UserStepController extends AbstractStepController
         $step = $todo->steps()->find($id);
 
         if (is_null($step)) {
-            return JsonResponse::false('Щаг не найден');
+            return JsonResponse::false('Шаг не найден');
         }
 
         $request = new Request();
@@ -68,7 +68,7 @@ class UserStepController extends AbstractStepController
         $step = $todo->steps()->find($id);
 
         if (is_null($step)) {
-            return JsonResponse::false('Щаг не найден');
+            return JsonResponse::false('Шаг не найден');
         }
 
         $step->delete();
