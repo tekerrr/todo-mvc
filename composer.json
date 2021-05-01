@@ -1,6 +1,7 @@
 {
     "name": "tekerrr/todo-mvc",
     "description": "only test",
+    "license": "MIT",
     "require": {
         "illuminate/database": "^6.13"
     },
