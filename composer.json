@@ -1,5 +1,6 @@
 {
     "name": "tekerrr/todo-mvc",
+    "description": "only test",
     "require": {
         "illuminate/database": "^6.13"
     },
